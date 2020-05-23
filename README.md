@@ -15,10 +15,28 @@ In addition generate the monthly/annual report in excel format.
 - PySimpleGUI
 - SQLite
 
+## How to Build
+
+I assume the target architecture is MacOS.
+It would be a good idea to build Windows and Linux binaries as well.
+
+### MacOS
+
+build instructions coming soon.
+
+### Windows
+
+build instructions coming soon.
+
+### Linux
+
+build instructions coming soon.
+
 ## First Time Start
 
 If no database file is detected run a first time start sequence.
-Enter the user's name, email, and default download location into a SQLite database file.
+Enter the user's name, email, and default download location into a
+SQLite database file.
 Load this file and open the Home page
 
 ## Home
@@ -64,8 +82,7 @@ Allow the user to do the following
 - Download report for any month
 - Download report for custom month ranges
 - Merge 2 SQLite databases
-- Import excel sheet (if possible this would make transitioning to the tool very easy)
-    - Additionally importing from the AWS database
+- Import excel sheet or database file
 
 ### Settings
 
