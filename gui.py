@@ -4,7 +4,7 @@ import PySimpleGUI as sg
 def home():
     def new_report():
         layout = [
-            [sg.Text('New Report', justification='center')],
+            [sg.Text('New Report')],
             [sg.Text('Name', size=(15, 1)), sg.Input(key='name')],
             [sg.Text('Address', size=(15, 1)), sg.Input(key='address')],
             [sg.Text('Phone', size=(15, 1)), sg.Input(key='phone')],
@@ -19,7 +19,7 @@ def home():
     def find_report():
         categories = ['Name', 'Incident Location', 'Place of Origin']
         layout = [
-            [sg.Text('Find Report', justification='center')],
+            [sg.Text('Find Report')],
             [sg.Text('Category', size=(15, 1)), sg.Drop(
                 values=categories, default_value=categories[0], readonly=True, auto_size_text=True)],
             [sg.Input(key='search term')],
@@ -32,7 +32,7 @@ def home():
     def get_monthly_report():
         months = ['January', 'February', 'March', 'April', 'May']
         layout = [
-            [sg.Text('Get Monthly Report', justification='center')],
+            [sg.Text('Get Monthly Report')],
             # [sg.FolderBrowse(button_text='Download to')],
             [sg.Drop(months, default_value=months[-1], readonly=True)],
             [sg.Button(button_text='Download'), sg.Cancel()],
@@ -45,7 +45,7 @@ def home():
         # TODO populate this list with valid years in the database
         years = ['2020', '2019', '2018']
         layout = [
-            [sg.Text('Get Annual Report', justification='center')],
+            [sg.Text('Get Annual Report')],
             [sg.Text('Year', size=(15, 1)), sg.Drop(
                 values=years, default_value=years[0], readonly=True, auto_size_text=True)],
             [sg.Button(button_text='Download'), sg.Cancel()],
@@ -101,8 +101,7 @@ def home():
         download_location = '~/Desktop'
 
         layout = [
-            [sg.Text('Settings', justification='center')],
-            # sg.Input(key='name', default_text=name)],
+            [sg.Text('Settings')],
             [sg.Text('Name', size=(15, 1)),
              sg.Input(key='name', default_text=name)],
             [sg.Text('Email', size=(15, 1)),
