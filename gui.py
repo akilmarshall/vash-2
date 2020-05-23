@@ -96,7 +96,25 @@ def home():
         window.Close()
 
     def settings():
-        pass
+        name = 'Jill Doe'
+        email = 'jdoe@vash.hawaii'
+        download_location = '~/Desktop'
+
+        layout = [
+            [sg.Text('Settings', justification='center')],
+            # sg.Input(key='name', default_text=name)],
+            [sg.Text('Name', size=(15, 1)),
+             sg.Input(key='name', default_text=name)],
+            [sg.Text('Email', size=(15, 1)),
+             sg.Input(key='email', default_text=email)],
+            [sg.FileBrowse(button_text='Download Location',
+                           initial_folder=download_location)],
+            [sg.OK(), sg.Cancel()]
+        ]
+
+        window = sg.Window('VASH Report Helper', layout)
+        event, values = window.read()
+        window.close()
 
     sg.ChangeLookAndFeel('SystemDefault')
     events = {'New Report': new_report,
