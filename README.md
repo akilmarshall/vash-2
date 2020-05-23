@@ -20,17 +20,9 @@ In addition generate the monthly/annual report in excel format.
 I assume the target architecture is MacOS.
 It would be a good idea to build Windows and Linux binaries as well.
 
-### MacOS
-
-build instructions coming soon.
-
-### Windows
-
-build instructions coming soon.
-
-### Linux
-
-build instructions coming soon.
+> ```bash
+> $ pyinstaller -wF gui.py
+> ```
 
 ## First Time Start
 
