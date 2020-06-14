@@ -13,6 +13,7 @@ In addition generate the monthly/annual report in excel format.
 
 - python 3
 - SQLite
+- tkcalendar
 
 ## How to Build
 
