@@ -1,20 +1,119 @@
-import PySimpleGUI as sg
+import tkinter as tk
+from tkinter import ttk
+import datetime
+
+PROGRAM_NAME = 'VASH Report Helper'
+DAYS = list(range(1, 31))
+CURRENT_DAY = datetime.datetime.now().day
+MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+          'July', 'August', 'September', 'October', 'November', 'December']
+CURRENT_MONTH = MONTHS[datetime.datetime.now().month - 1]
+YEAR = datetime.datetime.now().year
+YEARS = list(range(2019, YEAR + 1))
+INCIDENT_TYPES = ['physical assault', 'sexual assault', 'automobile accident', 'automobile theft', 'burglary', 'court case', 'death', 'disorderly conduct', 'evacuation',
+                  'lodging scam', 'lost', 'lost items', 'medical emergency', 'property damage', 'robbery', 'terroristic threatening', 'theft', 'unauthorized entry into motor vehicle']
+COD = ['Automobile Accident', 'Homicide', 'Suicide',
+       'Natural Cause/Illness', 'Water Related', 'Other']
+MMA = [
+    'U.S. Pacific and Mountain (AK, CA, OR, WA, AZ, CO, ID, MT, NV, UT, WY)', 'U.S. East (other contiguous states)', 'Japan', 'Canada', 'Europe (United Kingdom, Germany, France, Italy and Switzerland)', 'New Zealand', 'China', 'Korea', 'Taiwan', 'Other Asia (Hong Kong, Singapore, Malaysia, etc.)', 'Latin America (Argentina, Brazil and Mexico)', 'All Other Countries/Territories']
+REFERRED = ['Airline/Airport', 'Car Rental Agency', 'County Police', 'Cruise Line', 'Hospital', 'Hotel', 'Non-Hotel Accommodation',
+            'Other Agency', 'Other VAP Provider', 'Visitor Bureau', 'Tour/Travel Agency', 'Walk In/Direct', 'Volcano National Park', 'Pier']
+POLICE_STATIONS = ['Honoka"a', 'Laupahoehoe', 'Hilo',
+                   'Pahoa', 'Na"alehu', 'Kona', 'Waimea', 'Kapa"au']
 
 
+class Root(tk.Tk):
+    def __init__(self):
+        super().__init__()
+
+        self.title('VASH Report Helper')
+        # form.geometry('800x800')
+        self.geometry('800x800')
+
+        self.tab_parent = ttk.Notebook(self)
+
+        self.tab1 = ttk.Frame(self.tab_parent)
+        self.tab2 = ttk.Frame(self.tab_parent)
+
+        self.tab_parent.add(self.tab1, text='Home')
+        self.tab_parent.add(self.tab2, text='New Case')
+
+        self.tab_parent.pack(expand=1, fill='both')
+        # self.label = tk.Label(
+        #     self, text='VASH Report Helper Home', padx=5, pady=5)
+
+        # self.label.pack()
+
+
+# root = tk.Tk()
+# root.title('VASH Report Helper')
+
+
+# def myClick():
+#     myLabel = tk.Label(root, text="Look! I clicked a Button!!")
+#     myLabel.pack()
+
+
+# myButton = tk.Button(root, text="Click Me!", command=myClick)
+# myButton.pack()
+
+
+# root.mainloop()
+
+if __name__ == '__main__':
+    root = Root()
+    root.mainloop()
+
+# form = tk.Tk()
+# form.title('VASH Report Helper')
+# form.geometry('800x800')
+
+# tab_parent = ttk.Notebook(form)
+
+# tab1 = ttk.Frame(tab_parent)
+# tab2 = ttk.Frame(tab_parent)
+
+# tab_parent.add(tab1, text='Home')
+# tab_parent.add(tab2, text='New Case')
+
+# tab_parent.pack(expand=1, fill='both')
+
+# form.mainloop()
+
+
+"""
 def home():
     def new_report():
         layout = [
             [sg.Text('New Report')],
-            [sg.Text('Name', size=(15, 1)), sg.Input(key='name')],
-            [sg.Text('Address', size=(15, 1)), sg.Input(key='address')],
-            [sg.Text('Phone', size=(15, 1)), sg.Input(key='phone')],
+            [sg.Text('First Name', size=(15, 1)), sg.Input(key='first_name')],
+            [sg.Text('Last Name', size=(15, 1)), sg.Input(key='last_name')],
+            [sg.Text('Incident Date')],
+            [sg.Text('Year'), sg.Drop(values=YEARS, readonly=True, auto_size_text=True, default_value=YEARS[-1], key='year'), sg.Text('Month'),
+             sg.Drop(values=MONTHS, readonly=True, auto_size_text=True, default_value=CURRENT_MONTH, key='month'), sg.Text('Day'), sg.Drop(values=DAYS, readonly=True, auto_size_text=True, default_value=CURRENT_DAY, key='day')],
+            [sg.Text('Incident Type'), sg.Drop(
+                values=INCIDENT_TYPES, readonly=True, key='incident type', auto_size_text=True)],
+            [sg.Text('Party Size', size=(15, 1)), sg.Drop(
+                values=list(range(1, 11)), key='party size', auto_size_text=True)],
+            [sg.Text('Cause of Death', size=(15, 1)),
+             sg.Drop(values=COD, key='mma', readonly=True, auto_size_text=True)],
+            [sg.Text('Incident Location'), sg.Input(key='incident location')],
+            [sg.Text('Referred By'), sg.Drop(
+                values=REFERRED, key='referred by', readonly=True)],
+            [sg.Text('Police Station'), sg.Drop(
+                values=POLICE_STATIONS, key='police station', readonly=True)],
+            [sg.Text('Visitor Type'), sg.Drop(
+                values=['land', 'cruise'], key='visitor type', readonly=True, auto_size_text=True)],
+            [sg.Text('Place of Origin', size=(15, 1)), sg.Drop(
+                values=MMA, readonly=True, auto_size_text=True)],
+            [sg.Text('Notes', size=(15, 1)), sg.InputText(
+                size=(100, 4), key='notes')],
             [sg.Submit(), sg.Cancel()]
         ]
 
         window = sg.Window('VASH Report Helper', layout)
         event, values = window.read()
         window.close()
-        # print(f'{values["name"]} {values["address"]} {values["phone"]}')
 
     def find_report():
         categories = ['Name', 'Incident Location', 'Place of Origin']
@@ -151,3 +250,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+"""

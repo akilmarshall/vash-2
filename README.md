@@ -12,7 +12,6 @@ In addition generate the monthly/annual report in excel format.
 ## Dependencies
 
 - python 3
-- PySimpleGUI
 - SQLite
 
 ## How to Build
@@ -27,16 +26,13 @@ Enter the user's name, email, and default download location into a
 SQLite database file.
 Load this file and open the Home page
 
-## Home
+## Layout
 
-Contains the following options:
+The program consists of a main window with a series of tabs partitioning the major functions of the VASH Report Helper.
 
-- New Report
-- Find Report
-- Get Monthly Report
-- Get Yearly Report
-- Advanced Options
-- Settings
+### Home
+
+Contains meta information about the program.
 
 ### New Report
 
@@ -63,6 +59,10 @@ Allow the user to download an annual report from all valid years in the database
 The excel report is downloaded to the specified location.
 This location can be changed in Settings.
 
+### Settings
+
+Allow the user to modifier their name, email settings, and default download location.
+
 ### Advance Settings
 
 Allow the user to do the following
@@ -71,7 +71,3 @@ Allow the user to do the following
 - Download report for custom month ranges
 - Merge 2 SQLite databases
 - Import excel sheet or database file
-
-### Settings
-
-Allow the user to modifier their name, email settings, and default download location.

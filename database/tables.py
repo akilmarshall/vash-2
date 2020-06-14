@@ -15,7 +15,7 @@ class Case(Base):
     location = Column(String)
     party_size = Column(Integer)
     referred = Column(String)
-    vash_staff = Column(Integer, ForeignKey('STAFF._id'))
+    vash_staff = Column(Integer, ForeignKey('STAFF.id_'))
     email = Column(String)
     notes = Column(String)
     major_market_area = Column(String)
@@ -30,7 +30,7 @@ class Case(Base):
 class Staff(Base):
     __tablename__ = 'STAFF'
 
-    _id = Column(Integer, primary_key=True)
+    id_ = Column(Integer, primary_key=True)
     first_name = Column(String)
     last_name = Column(String)
     email = Column(String)
