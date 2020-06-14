@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-import tables
+from database import tables
 
 DB_PATH = 'sqlite:///../report_database.db'
 engine = create_engine(DB_PATH)

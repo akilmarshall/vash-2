@@ -9,6 +9,10 @@ The database should maintain their name, email, and reports.
 The executable will be able to manage and merge databases.
 In addition generate the monthly/annual report in excel format.
 
+## TODO
+
+- implement input validation
+
 ## Dependencies
 
 - python 3

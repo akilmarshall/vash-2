@@ -2,18 +2,19 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext
 import tkcalendar
-import datetime
+from database import database_functions
+from datetime import datetime
 
 PROGRAM_NAME = 'VASH Report Helper'
 DAYS = list(range(1, 31))
-CURRENT_DAY = datetime.datetime.now().day
+CURRENT_DAY = datetime.now().day
 MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
           'July', 'August', 'September', 'October', 'November', 'December']
-CURRENT_MONTH = MONTHS[datetime.datetime.now().month - 1]
-YEAR = datetime.datetime.now().year
+CURRENT_MONTH = MONTHS[datetime.now().month - 1]
+YEAR = datetime.now().year
 YEARS = list(range(2019, YEAR + 1))
-INCIDENT_TYPES = ['physical assault', 'sexual assault', 'automobile accident', 'automobile theft', 'burglary', 'court case', 'death', 'disorderly conduct', 'evacuation',
-                  'lodging scam', 'lost', 'lost items', 'medical emergency', 'property damage', 'robbery', 'terroristic threatening', 'theft', 'unauthorized entry into motor vehicle']
+INCIDENT_TYPES = ['Physical Assault', 'Sexual Assault', 'Automobile Accident', 'Automobile Theft', 'Burglary', 'Court Case', 'Death', 'Disorderly Conduct', 'Evacuation',
+                  'Lodging Scam', 'Lost', 'Lost Items', 'Medical Emergency', 'property Damage', 'Robbery', 'Terroristic Threatening', 'Theft', 'Unauthorized Entry into Motor Vehicle']
 COD = ['Automobile Accident', 'Homicide', 'Suicide',
        'Natural Cause/Illness', 'Water Related', 'Other']
 MMA = [
@@ -89,13 +90,12 @@ class Root(tk.Tk):
         self.string_var_dict['police station'] = tk.StringVar()
         self.string_var_dict['visitor type'] = tk.StringVar()
         self.string_var_dict['mma'] = tk.StringVar()
-        self.string_var_dict['case notes'] = tk.StringVar()
 
         first_name_entry = tk.Entry(
             self.tab_new_case, textvariable=self.string_var_dict['first name'])
         last_name_entry = tk.Entry(
             self.tab_new_case, textvariable=self.string_var_dict['last name'])
-        incident_date_entry = tkcalendar.DateEntry(self.tab_new_case)
+        self.incident_date_entry = tkcalendar.DateEntry(self.tab_new_case)
         incident_type_combobox = ttk.Combobox(
             self.tab_new_case, values=INCIDENT_TYPES, width=30, textvariable=self.string_var_dict['incident type'])
         incident_location_entry = tk.Entry(
@@ -112,13 +112,33 @@ class Root(tk.Tk):
             self.tab_new_case, values=VISITOR_TYPE, textvariable=self.string_var_dict['visitor type'])
         mma_combobox = ttk.Combobox(
             self.tab_new_case, values=MMA, textvariable=self.string_var_dict['mma'], width=57)
-        case_notes_entry = scrolledtext.ScrolledText(
+        self.case_notes_entry = scrolledtext.ScrolledText(
             self.tab_new_case, width=70, height=10)
 
-        def f():
-            print(self.string_var_dict['incident type'].get())
+        def submit():
+            # TODO input validation
+            # assemble a data dictionary to
+            data = dict()
+            data['first name'] = self.string_var_dict['first name'].get()
+            data['last name'] = self.string_var_dict['last name'].get()
+            data['incident date'] = self.incident_date_entry.get()
+            data['incident type'] = self.string_var_dict['incident type'].get()
+            data['incident location'] = self.string_var_dict['incident location'].get()
+            data['party size'] = self.string_var_dict['party size'].get()
+            data['cause of death'] = self.string_var_dict['cause of death'].get()
+            data['referred by'] = self.string_var_dict['referred by'].get()
+            data['police station'] = self.string_var_dict['police station'].get()
+            data['visitor type'] = self.string_var_dict['visitor type'].get()
+            data['case notes'] = self.case_notes_entry.get(1.0, tk.END)
+            database_functions.insert_case(data)
 
-        submit = tk.Button(self.tab_new_case, text='Submit', command=f)
+        def clear():
+            for key in self.string_var_dict.keys():
+                self.string_var_dict[key].set('')
+            self.case_notes_entry.delete(1.0, tk.END)
+
+        submit = tk.Button(self.tab_new_case, text='Submit', command=submit)
+        clear = tk.Button(self.tab_new_case, text='Clear', command=clear)
 
         # setup each label, entry pair
         first_name_label.grid(column=0, row=0, padx=20, pady=10, sticky='W')
@@ -128,7 +148,7 @@ class Root(tk.Tk):
         last_name_entry.grid(column=1, row=1, sticky='W')
 
         incident_date_label.grid(column=0, row=2, padx=20, pady=10, sticky='W')
-        incident_date_entry.grid(column=1, row=2, sticky='W')
+        self.incident_date_entry.grid(column=1, row=2, sticky='W')
 
         incident_type_label.grid(column=0, row=3, padx=20, pady=10, sticky='W')
         incident_type_combobox.grid(column=1, row=3, sticky='W')
@@ -158,12 +178,11 @@ class Root(tk.Tk):
         mma_combobox.grid(column=1, row=10, sticky='W')
 
         case_notes_label.grid(column=0, row=11, padx=20, pady=10, sticky='W')
-        case_notes_entry.grid(column=1, row=11, pady=10, sticky='W')
+        self.case_notes_entry.grid(column=1, row=11, pady=10,
+                                   sticky='W', columnspan=2)
 
         submit.grid(column=1, row=12)
-
-        # self.string_var_dict['first name'].set('RAINE')
-        # self.string_var_dict['last name'].set('IRABOBA')
+        clear.grid(column=2, row=12)
 
 
 if __name__ == '__main__':

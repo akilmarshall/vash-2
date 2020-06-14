@@ -18,7 +18,7 @@ class Case(Base):
     vash_staff = Column(Integer, ForeignKey('STAFF.id_'))
     email = Column(String)
     notes = Column(String)
-    major_market_area = Column(String)
+    mma = Column(String)
     visitor_type = Column(String)
 
     Staff = relationship('Staff', backref='Case')

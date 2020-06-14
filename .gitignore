@@ -126,3 +126,4 @@ dmypy.json
 # Other
 sample-reports
 *.db
+test.py
