@@ -1,9 +1,9 @@
+from datetime import datetime
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from tkinter import scrolledtext
 import tkcalendar
 from database import database_functions
-from datetime import datetime
 
 PROGRAM_NAME = 'VASH Report Helper'
 DAYS = list(range(1, 31))
@@ -21,18 +21,112 @@ MMA = [
     'U.S. Pacific and Mountain (AK, CA, OR, WA, AZ, CO, ID, MT, NV, UT, WY)', 'U.S. East (other contiguous states)', 'Japan', 'Canada', 'Europe (United Kingdom, Germany, France, Italy and Switzerland)', 'New Zealand', 'China', 'Korea', 'Taiwan', 'Other Asia (Hong Kong, Singapore, Malaysia, etc.)', 'Latin America (Argentina, Brazil and Mexico)', 'All Other Countries/Territories']
 REFERRED = ['Airline/Airport', 'Car Rental Agency', 'County Police', 'Cruise Line', 'Hospital', 'Hotel', 'Non-Hotel Accommodation',
             'Other Agency', 'Other VAP Provider', 'Visitor Bureau', 'Tour/Travel Agency', 'Walk In/Direct', 'Volcano National Park', 'Pier']
-POLICE_STATIONS = ['Honoka"a', 'Laupahoehoe', 'Hilo',
-                   'Pahoa', 'Na"alehu', 'Kona', 'Waimea', 'Kapa"au']
+POLICE_STATIONS = ["Honoka'a", 'Laupahoehoe', 'Hilo',
+                   'Pahoa', "Na'alehu", 'Kona', 'Waimea', "Kapa'au"]
 VISITOR_TYPE = ['Land', 'Cruise']
 
 
 class Case_check(tk.Tk):
-    def __init__(self):
+    def __init__(self, case_info: dict, root):
+        def OK():
+            # def ok_box():
+
+            # TODO input validation
+            messagebox.showinfo('Success', 'Case Recorded')
+            database_functions.insert_case(case_info)
+            root.clear_case()
+            self.destroy()
+
         super().__init__()
+        self.case_info = case_info
         self.geometry('600x800')
         self.title('Preview Window')
-        label = tk.Label(self, text='test label')
-        label.pack()
+
+        first_name_label = tk.Label(self, text='First Name:')
+        first_name_label.grid(column=0, row=0, padx=10, pady=10, sticky='W')
+
+        first_name = tk.Label(self, text=case_info['first name'])
+        first_name.grid(column=1, row=0, padx=10, pady=10, sticky='W')
+
+        last_name_label = tk.Label(self, text='Last Name:')
+        last_name_label.grid(column=0, row=1, padx=10, pady=10, sticky='W')
+
+        last_name = tk.Label(self, text=case_info['last name'])
+        last_name.grid(column=1, row=1, padx=10, pady=10, sticky='W')
+
+        incident_date_label = tk.Label(self, text='Incident Date:')
+        incident_date_label.grid(column=0, row=2, padx=10, pady=10, sticky='W')
+
+        incident_date = tk.Label(self, text=case_info['incident date'])
+        incident_date.grid(column=1, row=2, padx=10, pady=10, sticky='W')
+
+        incident_type_label = tk.Label(self, text='Incident Type:')
+        incident_type_label.grid(column=0, row=3, padx=10, pady=10, sticky='W')
+
+        incident_type = tk.Label(self, text=case_info['incident type'])
+        incident_type.grid(column=1, row=3, padx=10, pady=10, sticky='W')
+
+        incident_location_label = tk.Label(self, text='Incident Location:')
+        incident_location_label.grid(
+            column=0, row=4, padx=10, pady=10, sticky='W')
+
+        incident_location = tk.Label(self, text=case_info['incident location'])
+        incident_location.grid(column=1, row=4, padx=10, pady=10, sticky='W')
+
+        party_size_label = tk.Label(self, text='Party Size:')
+        party_size_label.grid(
+            column=0, row=5, padx=10, pady=10, sticky='W')
+
+        party_size = tk.Label(self, text=case_info['party size'])
+        party_size.grid(column=1, row=5, padx=10, pady=10, sticky='W')
+
+        cod_label = tk.Label(self, text='Cause of Death:')
+        cod_label.grid(
+            column=0, row=6, padx=10, pady=10, sticky='W')
+
+        cod = tk.Label(self, text=case_info['cause of death'])
+        cod.grid(column=1, row=6, padx=10, pady=10, sticky='W')
+
+        referred_label = tk.Label(self, text='Referred:')
+        referred_label.grid(
+            column=0, row=7, padx=10, pady=10, sticky='W')
+
+        referred = tk.Label(self, text=case_info['referred by'])
+        referred.grid(column=1, row=7, padx=10, pady=10, sticky='W')
+
+        police_station_label = tk.Label(self, text='Police Station:')
+        police_station_label.grid(
+            column=0, row=8, padx=10, pady=10, sticky='W')
+
+        police_station = tk.Label(self, text=case_info['police station'])
+        police_station.grid(column=1, row=8, padx=10, pady=10, sticky='W')
+
+        visitor_type_label = tk.Label(self, text='Visitor Type:')
+        visitor_type_label.grid(
+            column=0, row=9, padx=10, pady=10, sticky='W')
+
+        visitor_type = tk.Label(self, text=case_info['visitor type'])
+        visitor_type.grid(column=1, row=9, padx=10, pady=10, sticky='W')
+
+        mma_label = tk.Label(self, text='MMA:')
+        mma_label.grid(
+            column=0, row=10, padx=10, pady=10, sticky='W')
+
+        mma = tk.Label(self, text=case_info['mma'])
+        mma.grid(column=1, row=10, padx=10, pady=10, sticky='W')
+
+        notes_label = tk.Label(self, text='Notes:')
+        notes_label.grid(
+            column=0, row=11, padx=10, pady=10, sticky='W')
+
+        notes = tk.Label(self, text=case_info['case notes'])
+        notes.grid(column=1, row=11, padx=10, pady=10, sticky='W')
+
+        ok_button = tk.Button(self, text='OK', command=OK)
+        ok_button.grid(column=1, row=12)
+
+        cancel_button = tk.Button(self, text='Back', command=self.destroy)
+        cancel_button.grid(column=2, row=12)
 
 
 class Root(tk.Tk):
@@ -66,6 +160,11 @@ class Root(tk.Tk):
         welcome_text = ttk.Label(
             self.tab_home, text='Welcome to the VASH Report Helper')
         welcome_text.grid(column=0, row=0, padx=20, pady=20)
+
+    def clear_case(self):
+        for key in self.string_var_dict.keys():
+            self.string_var_dict[key].set('')
+        self.case_notes_entry.delete(1.0, tk.END)
 
     def __setup_new_case_tab__(self):
         # define label objects
@@ -125,8 +224,7 @@ class Root(tk.Tk):
             self.tab_new_case, width=70, height=10)
 
         def submit():
-            # TODO input validation
-            # assemble a data dictionary to
+            # assemble a data dictionary
             data = dict()
             data['first name'] = self.string_var_dict['first name'].get()
             data['last name'] = self.string_var_dict['last name'].get()
@@ -138,18 +236,14 @@ class Root(tk.Tk):
             data['referred by'] = self.string_var_dict['referred by'].get()
             data['police station'] = self.string_var_dict['police station'].get()
             data['visitor type'] = self.string_var_dict['visitor type'].get()
+            data['mma'] = self.string_var_dict['mma'].get()
             data['case notes'] = self.case_notes_entry.get(1.0, tk.END)
-            last_check = Case_check()
+            last_check = Case_check(data, self)
             last_check.mainloop()
-            database_functions.insert_case(data)
-
-        def clear():
-            for key in self.string_var_dict.keys():
-                self.string_var_dict[key].set('')
-            self.case_notes_entry.delete(1.0, tk.END)
 
         submit = tk.Button(self.tab_new_case, text='Submit', command=submit)
-        clear = tk.Button(self.tab_new_case, text='Clear', command=clear)
+        clear = tk.Button(self.tab_new_case, text='Clear',
+                          command=self.clear_case)
 
         # setup each label, entry pair
         first_name_label.grid(column=0, row=0, padx=20, pady=10, sticky='W')
