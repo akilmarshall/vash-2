@@ -1,8 +1,11 @@
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from database.create_database import DB_PATH
+# from database.create_database import DB_PATH
 from database import tables
 from datetime import datetime
+
+# DB_PATH = 'sqlite:///../report_database.db'
+DB_PATH = 'sqlite:///report_database.db'
 
 
 engine = create_engine(DB_PATH)
@@ -10,7 +13,7 @@ Session = sessionmaker(bind=engine)
 
 
 def insert_case(data: dict):
-    case = tables.Case(
+    case = tables.Cases(
         first_name=data['first name'],
         last_name=data['last name'],
         incident_date=datetime.strptime(data['incident date'], '%m/%d/%y'),
@@ -19,7 +22,7 @@ def insert_case(data: dict):
         vash_staff='bart',
         email='victim@mail.com',
         notes=data['case notes'],
-        major_market_area=data.get('mma'),
+        mma=data.get('mma'),
         visitor_type=data['visitor type'],
     )
     # case.first_name = data['first name']
