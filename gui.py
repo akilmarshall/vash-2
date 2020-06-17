@@ -26,6 +26,15 @@ POLICE_STATIONS = ['Honoka"a', 'Laupahoehoe', 'Hilo',
 VISITOR_TYPE = ['Land', 'Cruise']
 
 
+class Case_check(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.geometry('600x800')
+        self.title('Preview Window')
+        label = tk.Label(self, text='test label')
+        label.pack()
+
+
 class Root(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -130,6 +139,8 @@ class Root(tk.Tk):
             data['police station'] = self.string_var_dict['police station'].get()
             data['visitor type'] = self.string_var_dict['visitor type'].get()
             data['case notes'] = self.case_notes_entry.get(1.0, tk.END)
+            last_check = Case_check()
+            last_check.mainloop()
             database_functions.insert_case(data)
 
         def clear():
