@@ -1,6 +1,6 @@
 from datetime import datetime
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, Listbox
 from tkinter import scrolledtext
 import tkcalendar
 from database import database_functions
@@ -24,6 +24,8 @@ REFERRED = ['Airline/Airport', 'Car Rental Agency', 'County Police', 'Cruise Lin
 POLICE_STATIONS = ["Honoka'a", 'Laupahoehoe', 'Hilo',
                    'Pahoa', "Na'alehu", 'Kona', 'Waimea', "Kapa'au"]
 VISITOR_TYPE = ['Land', 'Cruise']
+SEARCH_CATEGORIES = ['first name', 'last name', 'incident type', 'incident location',
+                     'party size', 'cause of death', 'referred by', 'police station', 'visitor type', 'mma', 'notes']
 
 
 class Case_check(tk.Tk):
@@ -144,14 +146,17 @@ class Root(tk.Tk):
         # define each frame
         self.tab_home = ttk.Frame(self.tab_root)
         self.tab_new_case = ttk.Frame(self.tab_root)
+        self.tab_search = ttk.Frame(self.tab_root)
 
         # setup each tab
         self.__setup_home_tab__()
         self.__setup_new_case_tab__()
+        self.__setup_search_tab__()
 
         # add each frame to the notebook object
         self.tab_root.add(self.tab_home, text='Home')
         self.tab_root.add(self.tab_new_case, text='New Case')
+        self.tab_root.add(self.tab_search, text='Search')
 
         # display the root object
         self.tab_root.pack(expand=1, fill='both')
@@ -288,6 +293,33 @@ class Root(tk.Tk):
 
         submit.grid(column=1, row=12)
         clear.grid(column=2, row=12)
+
+    def __setup_search_tab__(self):
+        def search():
+            '''
+            query the database, display the results in a Listbox
+            '''
+            pass
+
+        category = tk.StringVar()
+        search_term = tk.StringVar()
+
+        category_label = tk.Label(self.tab_search, text='Category')
+        category_label.grid(column=0, row=0, padx=20, pady=10, sticky='W')
+
+        category_combobox = ttk.Combobox(
+            self.tab_search, values=SEARCH_CATEGORIES, width=25, textvariable=category)
+        category_combobox.grid(column=1, row=0, sticky='W')
+
+        search_term_label = tk.Label(self.tab_search, text='Search Term')
+        search_term_label.grid(column=0, row=1, padx=20, sticky='W')
+
+        search_term_entry = tk.Entry(self.tab_search, textvariable=search_term)
+        search_term_entry.grid(column=1, row=1, sticky='W')
+
+        search_button = tk.Button(
+            self.tab_search, text='Search', command=search)
+        search_button.grid(column=1, row=2, pady=10)
 
 
 if __name__ == '__main__':
